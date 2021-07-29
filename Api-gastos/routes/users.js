@@ -3,17 +3,8 @@ const route = express.Router(); //routes
 const joi = require('@hapi/joi'); //validator
 
 
-
-
-
-
-//middlewares
-
-
 //routes------------------------
-route.get('/', (req, res) =>{
-    res.send('hola')
-});
+
 //register
 route.post('/register',(req, res) => {
     req.getConnection((err, conn) =>{
@@ -48,13 +39,15 @@ route.post('/login', (req, res) => {
         conn.query(`SELECT * FROM usuarios WHERE correo= '${req.body.correo}'`, (err, rows) => {
             if(err) return res.send(err);
             if(rows.length > 0){
+                //login success
                 if(rows[0].password === req.body.password){
                     res.json(rows[0])
                 }else{
-                    res.send('la contraseña ingresada es incorrecta');
+                    res.send('the password entered is incorrect');
                 }
             }else{
-                res.status(400).send('The user entered does not exist or the password is not valid');
+                //login failed
+                res.status(404).send('The user entered does not exist or the password is not valid');
             }
         })
 
