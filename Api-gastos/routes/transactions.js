@@ -24,6 +24,21 @@ routeTransaction.post('/', (req, res) =>{
     })
 });
 
+//update transaction
+routeTransaction.put('/:id', (req, res) =>{
+    if(!req.body.monto || !req.body.concepto || !req.body.tipo || !req.body.fecha || !req.body.id_usuario){
+        return res.status(400).send('a parameter is missing');
+    }
+    req.getConnection((err, conn) => {
+        if(err) return res.send(err);
+        conn.query('use db_billetera');
+        //add transaction
+        conn.query('UPDATE operaciones set ? WHERE id = ?',[req.body, req.params.id] ,(err, rows) => {
+            if(err) return res.send(err)
+            res.send('the transaction has been updated');
+        });
+    })
+});
 
 //get all transactions per user
 routeTransaction.get('/', (req, res) => {
@@ -62,6 +77,22 @@ routeTransaction.get('/ingress', (req, res) => {
             res.json(rows);
         })
     });
+});
+
+//Delete transaction
+routeTransaction.delete('/:id', (req, res) =>{
+    if(!req.body.monto || !req.body.concepto || !req.body.tipo || !req.body.fecha || !req.body.id_usuario){
+        return res.status(400).send('a parameter is missing');
+    }
+    req.getConnection((err, conn) => {
+        if(err) return res.send(err);
+        conn.query('use db_billetera');
+        //add transaction
+        conn.query('DELETE FROM operaciones WHERE id = ?',[req.params.id] ,(err, rows) => {
+            if(err) return res.send(err)
+            res.send('the transaction has been updated');
+        });
+    })
 });
 
 module.exports = routeTransaction;
