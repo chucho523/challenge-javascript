@@ -3,8 +3,11 @@ const route = express.Router(); //routes
 const joi = require('@hapi/joi'); //validator
 const md5 = require('md5');//encrypt md5
 
+let errorReg = {
+    errorMsg: "",
+    errorStatus: ""
+}
 //routes------------------------
-
 //register
 route.post('/register',(req, res) => {
     req.getConnection((err, conn) =>{
@@ -13,12 +16,19 @@ route.post('/register',(req, res) => {
         conn.query(`SELECT * FROM usuarios WHERE correo= '${req.body.correo}'`, (err, rows) =>{
             if(err) return res.send(err);
             if(rows.length > 0){
-                res.send('the user already exists');
+                errorReg = {
+                    errorMsg: "The user already exists",
+                    errorStatus: "400"
+                }
+                res.json(errorReg);
             }else{
-                const {error} = validateEmail(req.body.correo);//validate email format
+                const {error} = validateEmail(req.body.correo, req.body.password);//validate email format
                 if(error){
-                    const message = error.details[0].message;
-                    res.status(400).send(message);
+                    errorReg = {
+                        errorMsg: "Enter a email address, and valid password",
+                        errorStatus: "400"
+                    }
+                    res.json(errorReg);
                     return;
                 }
                 //register user
@@ -62,15 +72,16 @@ route.post('/login', (req, res) => {
 })
 
 //validate email for users
-const validateEmail = (email) =>{
+const validateEmail = (email, pass) =>{
     const schema = joi.object({
         correo: joi.string()
             .min(3)
             .max(30)
             .required()
-            .email()
+            .email(),
+        password: joi.string().min(3).max(16).required()
     });
-    return (schema.validate({correo: email}));
+    return (schema.validate({correo: email, password: pass}));
 }
 
 //GENERATE TOKEN
