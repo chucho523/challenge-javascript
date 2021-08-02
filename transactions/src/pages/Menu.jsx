@@ -28,8 +28,9 @@ const Menu = () => {
                 url: `${apiUrl}${path}`,
                 method: 'GET',
             })
-
-                setData(data => response.data)
+                let dataLimited = response.data;
+                dataLimited = dataLimited.splice(0, 10);
+                setData(data => dataLimited)
             
         }
         catch(e){
@@ -51,6 +52,8 @@ const Menu = () => {
         }else{
             window.location.href="/home";
         }
+        let limitedData = data.splice(0, 10);
+        setData(limitedData)
     }, [user.id])
 
     

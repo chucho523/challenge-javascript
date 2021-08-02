@@ -66,7 +66,8 @@ routeTransaction.get('/:id', (req, res) => {
         //get transactions
         conn.query(`SELECT * FROM operaciones WHERE id_usuario = ${req.params.id}`, (err, rows) => {
             if(err) return res.send(err);
-            res.json(rows);
+            let reverse = rows.reverse();
+            res.json(reverse);
         })
     });
 });

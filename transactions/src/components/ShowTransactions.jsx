@@ -5,7 +5,7 @@ import moment from 'moment';
 const ShowTransactions = (props) => {
     const {data, toggle, setType} = props;
     return (
-        <div className={`${styles.containerTable} ${styles.bgTable}`}>
+        <div className={`${styles.containerTable} ${styles.bgTable} my-3`}>
             <div className={`${styles.subContainer}`}>
                 <table className={`table my-3 bg-table`}>
                     <thead>
@@ -18,7 +18,7 @@ const ShowTransactions = (props) => {
                     </thead>
                     <tbody>
                         {
-                            data.reverse().map((transaction) => {
+                            data.map((transaction) => {
                                 return(
                                     <tr key={transaction.id} className={transaction.tipo ==="egress" ?styles.red : styles.green}>
                                         <td>{transaction.monto}</td>
