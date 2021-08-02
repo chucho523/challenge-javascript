@@ -60,11 +60,20 @@ route.post('/login', (req, res) => {
                 if(rows[0].password === md5(req.body.password)){
                     res.json(rows[0]);
                 }else{
-                    res.send('the password entered is incorrect');
+                    errorReg = {
+                        errorMsg: "The password entered is incorrect",
+                        errorStatus: "400"
+                    }
+                    res.json(errorReg);
+                    
                 }
             }else{
                 //login failed
-                res.status(404).send('The user entered does not exist or the password is not valid');
+                errorReg = {
+                    errorMsg: "The user entered does not exist or the password is not valid",
+                    errorStatus: "400"
+                }
+                res.json(errorReg);
             }
         })
 

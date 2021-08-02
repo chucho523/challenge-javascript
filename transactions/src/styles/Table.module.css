@@ -1,0 +1,18 @@
+.bgTable{
+    background: #fff;
+}
+.containerTable{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+.subContainer{
+    width: 800px;
+    border: 2px solid #000;
+}
+.red{
+    background: rgba(255, 0, 0, 0.4)
+}
+.green{
+    background: rgba(0, 255, 55, 0.4)
+}

@@ -1,10 +1,10 @@
 import React from 'react';
-import Register from './pages/Register';
+import Routes from './components/Routes.jsx';
 
 function App() {
   return (
     <div className="App">
-      <Register />
+      <Routes />
     </div>
   );
 }
