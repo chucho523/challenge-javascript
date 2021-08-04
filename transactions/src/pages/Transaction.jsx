@@ -17,6 +17,7 @@ const Transaction = () => {
         monto: "",
         concepto: "",
         tipo: "",
+        categoria: "",
         fecha: "",
     });
     const [error, setError] = useState({
@@ -58,7 +59,6 @@ const Transaction = () => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(dataTransaction)
         try{
             const response = await axios({
                 url: `${apiUrl}/transactions/${idTransaction}`,
@@ -142,6 +142,10 @@ const Transaction = () => {
                     <div className={styles.item}>
                         <span className={styles.span}><b>Concept: </b></span>
                         <input type="text" name="concepto" placeholder="Concept" value={dataTransaction.concepto} onChange={handleChange} className={styles.inputs}/>
+                    </div>
+                    <div className={styles.item}>
+                        <span className={styles.span}><b>Category: </b></span>
+                        <input type="text" name="categoria" placeholder="Category" value={dataTransaction.categoria} onChange={handleChange} className={styles.inputs}/>
                     </div>
                     <div className={`${styles.item} mt-2`}>
                         <span className={styles.span}><b>Type: </b></span>

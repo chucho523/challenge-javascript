@@ -79,6 +79,7 @@ const FormTransaction = (props) => {
         monto: "",
         concepto: "",
         tipo: "egress",
+        categoria: "none",
         fecha: "",
         id_usuario: "",
         token: ""
@@ -100,6 +101,10 @@ const FormTransaction = (props) => {
                 <div className={styles.item}>
                     <span className={styles.span}>Concept</span>
                     <input type="text" name="concepto" placeholder="Concept" value={dataTransaction.concepto} onChange={handleChange} className={styles.inputs}/>
+                </div>
+                <div className={styles.item}>
+                    <span className={styles.span}>Category</span>
+                    <input type="text" name="categoria" placeholder="Category" value={dataTransaction.categoria} onChange={handleChange} className={styles.inputs}/>
                 </div>
                 <div className={styles.item}>
                     <span className={styles.span}>Type</span>

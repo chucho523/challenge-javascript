@@ -16,6 +16,7 @@ const ShowTransactions = (props) => {
                         <tr>
                             <th>Amount</th>
                             <th>Concept</th>
+                            <th className={styles.hiden}>Category</th>
                             <th className={styles.hiden}>Type</th>
                             <th>Date</th>
                         </tr>
@@ -27,6 +28,7 @@ const ShowTransactions = (props) => {
                                     <tr onClick={() => clickTransaction(transaction.id)} key={transaction.id} id="trow" className={(transaction.tipo ==="egress") ?(styles.red) : (styles.green)}>
                                         <td>{transaction.monto}</td>
                                         <td>{transaction.concepto.slice(0,10)}</td>
+                                        <td className={styles.hiden}>{transaction.categoria}</td>
                                         <td className={styles.hiden}>{transaction.tipo}</td>
                                         <td>{moment(transaction.fecha).format('DD/MM/YYYY')}</td>
                                     </tr>

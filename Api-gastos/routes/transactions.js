@@ -6,7 +6,7 @@ const id_usuario = require('../userLoged');//id user loged
 //routes------------
 //add transaction
 routeTransaction.post('/', (req, res) =>{
-    if(!req.body.monto || !req.body.concepto || !req.body.tipo || !req.body.fecha || !req.body.id_usuario || !req.body.token){
+    if(!req.body.monto || !req.body.concepto || !req.body.tipo || !req.body.categoria || !req.body.fecha || !req.body.id_usuario || !req.body.token){
         return res.json({error: 'a parameter is missing'});
     }
     req.getConnection((err, conn) => {
@@ -17,8 +17,8 @@ routeTransaction.post('/', (req, res) =>{
                 return res.json({error: 'the token is invalid'})
             }
         })
-        const {monto, concepto, tipo, fecha, id_usuario} = req.body;
-        const newBody = {monto, concepto, tipo, fecha, id_usuario};
+        const {monto, concepto, tipo, categoria, fecha, id_usuario} = req.body;
+        const newBody = {monto, concepto, tipo, categoria, fecha, id_usuario};
         //add transaction
         conn.query('INSERT INTO operaciones set ?',[newBody] ,(err, rows) => {
             const {error} = validateAmount(req.body.monto);//validate amount format
@@ -33,7 +33,7 @@ routeTransaction.post('/', (req, res) =>{
 
 //update transaction
 routeTransaction.put('/:id', (req, res) =>{
-    if(!req.body.monto || !req.body.concepto || !req.body.tipo || !req.body.fecha || !req.body.id_usuario || !req.body.token){
+    if(!req.body.monto || !req.body.concepto || !req.body.tipo || !req.body.categoria || !req.body.fecha || !req.body.id_usuario || !req.body.token){
         return res.json({error: 'a parameter is missing'});
     }
     req.getConnection((err, conn) => {
@@ -44,8 +44,8 @@ routeTransaction.put('/:id', (req, res) =>{
                 return res.json({error: 'the token is invalid'})
             }
         })
-        const {monto, concepto, tipo, fecha, id_usuario} = req.body;
-        const newBody = {monto, concepto, tipo, fecha, id_usuario};
+        const {monto, concepto, tipo, categoria, fecha, id_usuario} = req.body;
+        const newBody = {monto, concepto, tipo, categoria, fecha, id_usuario};
         //add transaction
         conn.query('UPDATE operaciones set ? WHERE id = ?',[newBody, req.params.id] ,(err, rows) => {
             const {error} = validateAmount(req.body.monto);//validate amount format

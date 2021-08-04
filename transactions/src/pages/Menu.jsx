@@ -6,7 +6,7 @@ import FormTransaction from '../components/FormTransaction.jsx';
 import ShowTransactions from '../components/ShowTransactions.jsx';
 import styles from '../styles/Menu.module.css';
 import {useHistory} from 'react-router-dom';
-import {notificationSuccess, notificationError} from '../services/notification.jsx'
+import {notificationError} from '../services/notification.jsx'
 
 const cookie = new Cookies();
 
@@ -19,7 +19,8 @@ const Menu = () => {
     const [typeTransaction, setTypeTransaction] = useState({
         type: "limited"
     })
-    const [balance, setBalance] = useState(0)
+    const [balance, setBalance] = useState(0);
+
     //functions
     const toggle = () => {
         setActive(!active);
@@ -30,6 +31,7 @@ const Menu = () => {
             [e.target.name] : e.target.value
         })
     }
+
     const ApiBalance = () => {
         axios.get(`${apiUrl}/transactions/all/${cookie.get('id')}`)
             .then(response => {return response.data})
@@ -73,7 +75,7 @@ const Menu = () => {
             }else{
                 callApi(`/transactions/limited/${cookie.get('id')}`)
             }
-            
+           
 
         }else{
             history.push("/home");
