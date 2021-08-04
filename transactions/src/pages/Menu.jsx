@@ -31,7 +31,7 @@ const Menu = () => {
             [e.target.name] : e.target.value
         })
     }
-
+                                //set balance 
     const ApiBalance = () => {
         axios.get(`${apiUrl}/transactions/all/${cookie.get('id')}`)
             .then(response => {return response.data})
@@ -91,7 +91,9 @@ const Menu = () => {
                 call={callApi}
             />
             <div className={`${styles.controls}`}>
+
                 <h2 className={styles.balance}>Balance: ${balance}</h2>
+
                 <div className={`${styles.controlsChild} my-3`}>
                     <button className="btn btn-primary" onClick={() => 
                         {
@@ -100,6 +102,7 @@ const Menu = () => {
                         }
                     }>Add Transaction</button>
                 </div>
+
                 <div className={`${styles.controlsChild}`}>
                     <select className="me-2" name="type" value={typeTransaction.type} onChange={handleChangeFilter}>
                         <option value="limited">Limited</option>
@@ -107,6 +110,7 @@ const Menu = () => {
                         <option value="egress">Egress</option>
                         <option value="ingress">Ingress</option>
                     </select>
+                    
                     <button className="btn btn-primary" onClick={
                         () => {
                             callApi(`/transactions/${typeTransaction.type}/${cookie.get('id')}`)

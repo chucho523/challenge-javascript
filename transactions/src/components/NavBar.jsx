@@ -1,16 +1,17 @@
 import React from 'react';
 import Cookies from 'universal-cookie';
+import {useHistory} from 'react-router-dom'
 
 const cookie = new Cookies();
 
 const NavBar = () => {
-
+    const history = useHistory();
     const logOut = (e) =>{
         e.preventDefault();
         cookie.remove('email', {path: '/'});
         cookie.remove('id', {path: '/'});
         cookie.remove('token', {path: '/'});
-        window.location.href="/menu";
+        history.push('/home');
     }
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -28,8 +29,8 @@ const NavBar = () => {
                                 </li>
                             :   
                                 <li className="nav-item">
-                                    <button className="btn btn-primary me-3" onClick={() => window.location.href="/login"}>Sing Up</button>
-                                    <button className="btn btn-primary" onClick={() => window.location.href="/register"}>Sign In</button>
+                                    <button className="btn btn-primary me-3" onClick={() => history.push('/login')}>Sing Up</button>
+                                    <button className="btn btn-primary" onClick={() => history.push("/register")}>Sign In</button>
                                 </li>
 
                         }
