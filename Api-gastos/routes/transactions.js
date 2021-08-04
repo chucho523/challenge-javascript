@@ -59,7 +59,7 @@ routeTransaction.put('/:id', (req, res) =>{
 });
 
 //get all transactions per user
-routeTransaction.get('/:id', (req, res) => {
+routeTransaction.get('/all/:id', (req, res) => {
     req.getConnection((err, conn) => {
         if(err) return (res.send(err));
         conn.query('use db_billetera');
@@ -108,7 +108,8 @@ routeTransaction.get('/egress/:id', (req, res) => {
         //get transactions
         conn.query(`SELECT * FROM operaciones WHERE id_usuario = ${req.params.id} AND tipo='egress'`, (err, rows) => {
             if(err) return res.send(err);
-            res.json(rows);
+            let reverse = rows.reverse();
+            res.json(reverse);
         })
     });
 });
@@ -121,7 +122,8 @@ routeTransaction.get('/ingress/:id', (req, res) => {
         //get transactions
         conn.query(`SELECT * FROM operaciones WHERE id_usuario = ${req.params.id} AND tipo='ingress'`, (err, rows) => {
             if(err) return res.send(err);
-            res.json(rows);
+            let reverse = rows.reverse();
+            res.json(reverse);
         })
     });
 });

@@ -5,7 +5,7 @@ import {apiUrl} from '../services/api.jsx';
 import Cookies from 'universal-cookie';
 import styles from '../styles/Transaction.module.css';
 import moment from 'moment'
-import FormTransaction from '../components/FormTransaction'
+
 
 const cookie = new Cookies(); 
 
@@ -88,7 +88,7 @@ const Transaction = () => {
             })
        
         
-    },[]);
+    },[idTransaction]);
     return (
         <div className="d-flex justify-content-center align-items-center">
             <form onSubmit={handleSubmit} className={styles.formulario}>

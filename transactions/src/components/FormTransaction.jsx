@@ -1,11 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {Modal} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import styles from '../styles/FormTransaction.module.css';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import {apiUrl} from '../services/api.jsx'
-import {useHistory} from 'react-router-dom'
 
 const cookie = new Cookies();
 const useStyles = makeStyles((theme) => (
@@ -26,10 +25,8 @@ const useStyles = makeStyles((theme) => (
 ));
 
 const FormTransaction = (props) => {
-
     //get props
     const {active, toggle, call} = props;
-    const history = useHistory();
     //functions
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -79,7 +76,7 @@ const FormTransaction = (props) => {
     const [dataTransaction, setDataTransaction] = useState({
         monto: "",
         concepto: "",
-        tipo: "",
+        tipo: "egress",
         fecha: "",
         id_usuario: "",
         token: ""
