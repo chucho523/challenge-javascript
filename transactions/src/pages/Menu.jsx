@@ -6,6 +6,7 @@ import FormTransaction from '../components/FormTransaction.jsx';
 import ShowTransactions from '../components/ShowTransactions.jsx';
 import styles from '../styles/Menu.module.css';
 import {useHistory} from 'react-router-dom';
+import {notificationSuccess, notificationError} from '../services/notification.jsx'
 
 const cookie = new Cookies();
 
@@ -56,7 +57,7 @@ const Menu = () => {
             setData(response.data); 
         }
         catch(e){
-            console.log(e);
+            notificationError(e.message);
         }
     }
     //hooks
@@ -77,6 +78,7 @@ const Menu = () => {
         }else{
             history.push("/home");
         }
+        //eslint-disable-next-line react-hooks/exhaustive-deps
     },[data.lenght])
     
     return (
@@ -86,26 +88,32 @@ const Menu = () => {
                 active={active}
                 call={callApi}
             />
-            <h2>{balance}</h2>
-            <button className="btn btn-primary" onClick={() => 
-                {
-                    toggle();
-                    setType(type=> "post")
-                }
-            }>Add Transaction</button>
-            <select name="type" value={typeTransaction.type} onChange={handleChangeFilter}>
-                <option value="limited">Limited</option>
-                <option value="all">All</option>
-                <option value="egress">Egress</option>
-                <option value="ingress">Ingress</option>
-            </select>
-            <button className="btn btn-primary" onClick={
-                () => {
-                    console.log(`/transactions/${typeTransaction.type}`);
-                    callApi(`/transactions/${typeTransaction.type}/${cookie.get('id')}`)
-                    
-                }
-            }>Apply filters</button>
+            <div className={`${styles.controls}`}>
+                <h2 className={styles.balance}>Balance: ${balance}</h2>
+                <div className={`${styles.controlsChild} my-3`}>
+                    <button className="btn btn-primary" onClick={() => 
+                        {
+                            toggle();
+                            setType(type=> "post")
+                        }
+                    }>Add Transaction</button>
+                </div>
+                <div className={`${styles.controlsChild}`}>
+                    <select className="me-2" name="type" value={typeTransaction.type} onChange={handleChangeFilter}>
+                        <option value="limited">Limited</option>
+                        <option value="all">All</option>
+                        <option value="egress">Egress</option>
+                        <option value="ingress">Ingress</option>
+                    </select>
+                    <button className="btn btn-primary" onClick={
+                        () => {
+                            callApi(`/transactions/${typeTransaction.type}/${cookie.get('id')}`)
+                            
+                        }
+                    }>Apply filters</button>
+                </div>
+            </div>
+          
             <ShowTransactions data={data} toggle={toggle} setType={setType} type={type}/>
             
         </div>

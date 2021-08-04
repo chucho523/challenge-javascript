@@ -1,10 +1,23 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {apiUrl} from '../services/api.jsx'
 import axios from 'axios';
 import UserForm from '../components/UserForm.jsx';
+import {notificationSuccess, notificationError} from '../services/notification.jsx';
+import {ToastContainer} from 'react-toastify';
+import {useHistory} from 'react-router-dom';
+import Cookies from 'universal-cookie';
+
+const cookie = new Cookies();
 
 const Register = () => {
+    const history = useHistory();
     //functions--------------------------
+    useEffect(() => {
+        if(cookie.get('token')){
+            history.push('/menu');
+        }
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
     const signIn = async() =>{
         try{
             const response = await axios({
@@ -24,11 +37,12 @@ const Register = () => {
                     error: false,
                     errorMsg: ""
                 });
-                
+                notificationSuccess('successfully registered user');
+                history.push('/login')
             }
         }
         catch(e){
-            console.log(e)
+            notificationError(e.message)
         }
     }
     const handleChange = async(e) =>{
@@ -53,12 +67,25 @@ const Register = () => {
     })
     
     return (
-        <UserForm
-            error={error} 
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
-            messageButton={`Sing In`}
-        />
+        <div>
+            <ToastContainer 
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />
+            <UserForm
+                error={error} 
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+                messageButton={`Sing In`}
+            />
+        </div>
           
     )
 }

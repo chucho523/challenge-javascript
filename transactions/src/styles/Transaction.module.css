@@ -5,3 +5,10 @@
 .button{
     width: 30%;
 }
+.icon{
+    font-size: 2rem;
+    margin: 10px;
+}
+.icon:hover{
+    cursor: pointer;
+}

@@ -17,3 +17,8 @@
 .green{
     background: rgba(0, 255, 55, 0.4)
 }
+@media (max-width: 300px){
+    .hiden{
+        display:none;
+    }
+}

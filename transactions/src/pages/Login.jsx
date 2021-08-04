@@ -1,11 +1,21 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {apiUrl} from '../services/api.jsx'
 import axios from 'axios';
 import UserForm from '../components/UserForm.jsx';
 import Cookies from 'universal-cookie';
+import {useHistory} from 'react-router-dom';
+
+const cookie = new Cookies();
 
 const Login = () => {
     //functions-------------------
+    useEffect(() => {
+        if(cookie.get('token')){
+            history.push('/menu')
+        }
+        
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
     const signUp = async() =>{
         try{
             const response = await axios({
@@ -65,8 +75,9 @@ const Login = () => {
         error: false,
         errorMsg: ""
     })
+    const history = useHistory();
     
-    const cookie = new Cookies();
+    
 
 
     return (

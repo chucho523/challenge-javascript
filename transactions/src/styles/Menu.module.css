@@ -3,3 +3,15 @@
     width: 100vw;
     overflow-x: hidden;
 }
+.controls{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+}
+.controlsChild{
+    display:flex;
+    justify-content: center;
+}
+.balance{
+    color: #000;
+}

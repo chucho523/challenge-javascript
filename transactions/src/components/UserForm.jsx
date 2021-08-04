@@ -14,7 +14,7 @@ const UserForm = (props) => {
                 <form onSubmit={handleSubmit}>
                 <input type="text" id="login" className="fadeIn second" name="correo" placeholder="email" onChange={handleChange} />
                 <input type="password" id="password" className="fadeIn third" name="password" placeholder="password" onChange={handleChange} />
-                <input type="submit" className="fadeIn fourth my-3" value={messageButton} />
+                <button type="submit" className="fadeIn fourth my-3 btn btnBg">{messageButton}</button>
                 </form>
                 
                 {(error.error)&&                    

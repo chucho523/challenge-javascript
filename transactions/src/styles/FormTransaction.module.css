@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     
-}
+} 
 .formulario{
     margin-top: 40px;
     width: 90%;
@@ -28,4 +28,9 @@
 }
 .button{
     width: 90%;
+}
+@media (max-width: 300px){
+    .date{
+        max-width: 120px;
+    }
 }

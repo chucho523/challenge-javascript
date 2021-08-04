@@ -5,6 +5,7 @@ import styles from '../styles/FormTransaction.module.css';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import {apiUrl} from '../services/api.jsx'
+import {notificationSuccess} from '../services/notification'
 
 const cookie = new Cookies();
 const useStyles = makeStyles((theme) => (
@@ -63,6 +64,7 @@ const FormTransaction = (props) => {
                 })
                 toggle();
                 call(`/transactions/limited/${cookie.get('id')}`);
+                notificationSuccess('transaction added')
             }
                 
             
@@ -109,7 +111,7 @@ const FormTransaction = (props) => {
                 </div>
                 <div className={styles.item}>
                     <span className={styles.span}>Date</span>
-                    <input type="date" name="fecha" placeholder="Date" value={dataTransaction.fecha} onChange={handleChange} />
+                    <input className={styles.date} type="date" name="fecha" placeholder="Date" value={dataTransaction.fecha} onChange={handleChange} />
                 </div>
                 <div className={`${styles.item} d-flex justify-content-center`}>
                     <button className={`${styles.button} btn btn-success`}><p>Add</p></button>
