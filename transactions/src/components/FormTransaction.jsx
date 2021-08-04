@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Modal} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import styles from '../styles/FormTransaction.module.css';
@@ -11,11 +11,11 @@ const useStyles = makeStyles((theme) => (
     {
         modal:{
             position: 'absolute',
-            width: 700,
+            width: '80%',
             backgroundColor: 'white',
             border: '2px solid #000',
             boxShadow: theme.shadows[5],
-            padding: theme.spacing(2,4,3),
+            padding: theme.spacing(1,1,3),
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
@@ -27,10 +27,9 @@ const useStyles = makeStyles((theme) => (
 const FormTransaction = (props) => {
 
     //get props
-    const {active, toggle, type} = props;
+    const {active, toggle} = props;
     
     //functions
-    
     const handleSubmit = (e) => {
         e.preventDefault();
         postApi()
@@ -39,17 +38,17 @@ const FormTransaction = (props) => {
         e.preventDefault();
         setDataTransaction({
             ...dataTransaction,
-            token: cookie.get('token'),
             id_usuario: cookie.get('id'),
+            token: cookie.get('token'),
             [e.target.name] : e.target.value
         })
-        console.log(dataTransaction);
+        
     }
     const postApi = async (path) => {
         try{
             const response = await axios({
                 url: `${apiUrl}/transactions`,
-                method: 'POST',
+                method: `POST`,
                 data: dataTransaction
             })
 
@@ -101,24 +100,18 @@ const FormTransaction = (props) => {
                 </div>
                 <div className={styles.item}>
                     <span className={styles.span}>Type</span>
-                    { (type === "put") ?
-                        <select value={dataTransaction.tipo} name="tipo" placeholder="Type" onChange={handleChange} disabled>
-                            <option value="egress">egress</option>
-                            <option value="ingress" >ingress</option>
-                        </select>
-                        :
-                        <select value={dataTransaction.tipo} name="tipo" placeholder="Type" onChange={handleChange} >
-                            <option value="egress" >egress</option>
-                            <option value="ingress" >ingress</option>
-                        </select>
-                    }
+                    <select value={dataTransaction.tipo} name="tipo" placeholder="Type" onChange={handleChange} >
+                        <option value="egress" >egress</option>
+                        <option value="ingress" >ingress</option>
+                    </select>
+                    
                 </div>
                 <div className={styles.item}>
                     <span className={styles.span}>Date</span>
                     <input type="date" name="fecha" placeholder="Date" value={dataTransaction.fecha} onChange={handleChange} />
                 </div>
                 <div className={`${styles.item} d-flex justify-content-center`}>
-                    <button className={`${styles.button} btn btn-success`}>{(type==="put")? <p>Edit</p> : <p>Add</p>}</button>
+                    <button className={`${styles.button} btn btn-success`}><p>Add</p></button>
                 </div>
                 {(error.error) &&
                     <div className="alert alert-danger" role="alert">

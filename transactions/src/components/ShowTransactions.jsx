@@ -1,9 +1,14 @@
 import React from 'react';
 import styles from '../styles/Table.module.css';
 import moment from 'moment';
+import {useHistory} from 'react-router-dom';
 
 const ShowTransactions = (props) => {
-    const {data, toggle, setType} = props;
+    const {data} = props;
+    const history = useHistory();
+    const clickTransaction = (id) => {
+        history.push(`/transaction/${id}`)
+    }
     return (
         <div className={`${styles.containerTable} ${styles.bgTable} my-3`}>
             <div className={`${styles.subContainer}`}>
@@ -14,24 +19,18 @@ const ShowTransactions = (props) => {
                             <th>Concept</th>
                             <th>Type</th>
                             <th>Date</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             data.map((transaction) => {
                                 return(
-                                    <tr key={transaction.id} className={transaction.tipo ==="egress" ?styles.red : styles.green}>
+                                    <tr onClick={() => clickTransaction(transaction.id)} key={transaction.id} className={transaction.tipo ==="egress" ?styles.red : styles.green}>
                                         <td>{transaction.monto}</td>
                                         <td>{transaction.concepto}</td>
                                         <td>{transaction.tipo}</td>
                                         <td>{moment(transaction.fecha).format('DD/MM/YYYY')}</td>
-                                        <td><button className="btn btn-primary" onClick={() => 
-                                            {
-                                                toggle();
-                                                setType(type=> "put")
-                                            }
-                                            }>Edit</button>
-                                        </td>
                                     </tr>
                                 )
                             })

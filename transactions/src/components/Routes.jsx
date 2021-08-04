@@ -5,6 +5,8 @@ import Login from '../pages/Login.jsx';
 import Register from '../pages/Register.jsx';
 import Menu from '../pages/Menu.jsx';
 import Home from '../pages/Home.jsx';
+import Transaction from '../pages/Transaction.jsx';
+
 const Routes = () => {
     return (
         <Router>
@@ -26,6 +28,9 @@ const Routes = () => {
                 </Route>
                 <Route path="/home">
                     <Home />
+                </Route>
+                <Route path="/transaction/:idTransaction">
+                    <Transaction />
                 </Route>
             </Switch>
         </Router>

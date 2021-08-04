@@ -72,6 +72,34 @@ routeTransaction.get('/:id', (req, res) => {
     });
 });
 
+//get all transactions per user limited
+routeTransaction.get('/limited/:id', (req, res) => {
+    req.getConnection((err, conn) => {
+        if(err) return (res.send(err));
+        conn.query('use db_billetera');
+        //get transactions
+        conn.query(`SELECT * FROM operaciones WHERE id_usuario = ${req.params.id}`, (err, rows) => {
+            if(err) return res.send(err);
+            let reverse = rows.reverse();
+            reverse = reverse.splice(0,10);
+            res.json(reverse);
+        })
+    });
+});
+
+//get one transaction
+routeTransaction.get('/one/:id/:idTransaction', (req, res) => {
+    req.getConnection((err, conn) => {
+        if(err) return (res.send(err));
+        conn.query('use db_billetera');
+        //get transactions
+        conn.query(`SELECT * FROM operaciones WHERE id_usuario = ${req.params.id} AND id=${req.params.idTransaction}`, (err, rows) => {
+            if(err) return res.send(err);
+            res.json(rows[0]);
+        })
+    });
+});
+
 //get transactions for egress
 routeTransaction.get('/egress/:id', (req, res) => {
     req.getConnection((err, conn) => {
