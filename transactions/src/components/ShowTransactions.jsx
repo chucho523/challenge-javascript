@@ -11,7 +11,6 @@ const ShowTransactions = (props) => {
     }
     return (
         <div className={`${styles.containerTable} ${styles.bgTable} my-3`}>
-            <div className={`${styles.subContainer}`}>
                 <table className={`table my-3 bg-table`}>
                     <thead>
                         <tr>
@@ -19,14 +18,13 @@ const ShowTransactions = (props) => {
                             <th>Concept</th>
                             <th>Type</th>
                             <th>Date</th>
-                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             data.map((transaction) => {
                                 return(
-                                    <tr onClick={() => clickTransaction(transaction.id)} key={transaction.id} className={transaction.tipo ==="egress" ?styles.red : styles.green}>
+                                    <tr onClick={() => clickTransaction(transaction.id)} key={transaction.id} id="trow" className={(transaction.tipo ==="egress") ?(styles.red) : (styles.green)}>
                                         <td>{transaction.monto}</td>
                                         <td>{transaction.concepto}</td>
                                         <td>{transaction.tipo}</td>
@@ -37,7 +35,6 @@ const ShowTransactions = (props) => {
                         }
                     </tbody>
                 </table>
-            </div>
         </div>
     )
 }

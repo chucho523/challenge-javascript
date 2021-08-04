@@ -112,8 +112,9 @@ const Transaction = () => {
                     <span className={styles.span}>Date</span>
                     <input type="date" name="fecha" placeholder="Date" value={moment(dataTransaction.fecha).format('YYYY-MM-DD')} onChange={handleChange} />
                 </div>
-                <div className={`${styles.item} d-flex justify-content-center`}>
-                    <button className={`${styles.button} btn btn-success`}><p>Edit</p></button>
+                <div className={`${styles.item} d-flex justify-content-center mt-3`}>
+                    <button type="submit" className={`${styles.button} btn btn-success me-2`}>Edit</button>
+                    <button className={`${styles.button} btn btn-danger`} onClick={()=> {del(idTransaction)}}>Delete</button>
                 </div>
                 {(error.error) &&
                     <div className="alert alert-danger" role="alert">

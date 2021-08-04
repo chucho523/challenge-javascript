@@ -5,6 +5,7 @@ import styles from '../styles/FormTransaction.module.css';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import {apiUrl} from '../services/api.jsx'
+import {useHistory} from 'react-router-dom'
 
 const cookie = new Cookies();
 const useStyles = makeStyles((theme) => (
@@ -27,12 +28,13 @@ const useStyles = makeStyles((theme) => (
 const FormTransaction = (props) => {
 
     //get props
-    const {active, toggle} = props;
-    
+    const {active, toggle, call} = props;
+    const history = useHistory();
     //functions
     const handleSubmit = (e) => {
         e.preventDefault();
-        postApi()
+        postApi();
+
     }
     const handleChange = (e) => {
         e.preventDefault();
@@ -62,6 +64,8 @@ const FormTransaction = (props) => {
                     error: false,
                     errorMsg: ""
                 })
+                toggle();
+                call(`/transactions/limited/${cookie.get('id')}`);
             }
                 
             

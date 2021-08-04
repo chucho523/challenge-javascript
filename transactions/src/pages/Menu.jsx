@@ -71,7 +71,7 @@ const Menu = () => {
             window.location.href="/home";
         }
 
-    }, [])
+    }, [data.lenght])
 
     
     return (
@@ -79,8 +79,7 @@ const Menu = () => {
             <FormTransaction 
                 toggle={toggle}
                 active={active}
-                type={type}
-                data={dataTransaction}
+                call={callApi}
             />
             <button className="btn btn-primary" onClick={() => 
                 {
