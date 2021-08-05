@@ -1,5 +1,5 @@
 # challenge-javascript
-challenge javascript for alkemy
+_Challenge javascript para alkemy_
 
 _Aplicación web para administrar gastos, en esta app se registran las transacciones, tanto de ingreso como egreso_
 
@@ -7,7 +7,6 @@ _Aplicación web para administrar gastos, en esta app se registran las transacci
 
 _Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas._
 
-Mira **Deployment** para conocer como desplegar el proyecto.
 
 
 ### Pre-requisitos 📋
